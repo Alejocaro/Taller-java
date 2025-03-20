@@ -12,7 +12,10 @@ public class ListSimpleLink {
     public static void main(String[] args) {
         insertHead();
         insertarAlFinal();
+        insertarDespues();
         eliminarNodo();
+        eliminarPrimero();
+        eliminarUltimo();
         iteratorTravel();
         triggerTravel();
         destroy();
@@ -69,6 +72,24 @@ public class ListSimpleLink {
         } while (opcInsert == 'S');
     }
 
+    private static void insertarDespues() {
+        System.out.println("\nInsertar después de un nodo de referencia");
+        
+        try {
+            System.out.println("Ingrese el valor de referencia (después del cual insertar): ");
+            int referencia = scan.nextInt();
+            
+            System.out.println("Ingrese el nuevo valor a insertar: ");
+            int valor = scan.nextInt();
+            
+            objList.insertarDespues(referencia, valor);
+            System.out.println("Valor insertado correctamente después del nodo de referencia");
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     private static void eliminarNodo() {
         System.out.println("\nEliminar nodo por referencia");
         
@@ -79,6 +100,28 @@ public class ListSimpleLink {
             objList.eliminarNodo(edad);
             System.out.println("Operación de eliminación completada");
             
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void eliminarPrimero() {
+        System.out.println("\nEliminando el primer nodo de la lista");
+        
+        try {
+            objList.eliminarPrimero();
+            System.out.println("Operación de eliminación del primer nodo completada");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void eliminarUltimo() {
+        System.out.println("\nEliminando el último nodo de la lista");
+        
+        try {
+            objList.eliminarUltimo();
+            System.out.println("Operación de eliminación del último nodo completada");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

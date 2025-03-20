@@ -113,7 +113,7 @@ public class List {
         try {
             // Verificar si la lista está vacía
             if (this.empty()) {
-                throw new Exception("\nEl nodo dado como referencia no se encuentra en la lista.\n");
+                throw new Exception("\nLa lista está vacía\n");
             }
 
             // Obtener el primer nodo de la lista
@@ -139,11 +139,90 @@ public class List {
                 }
 
                 System.out.println("\nDestruyendo el nodo: " + tempPtr.getInfo() + "\n");
-                // En Java el garbage collector se encarga de liberar la memoria
-                tempPtr = null;
+                tempPtr = null;    // En Java el garbage collector se encarga de liberar la memoria
             } else {
                 throw new Exception("\nEl nodo dado como referencia no se encuentra en la lista.\n");
             }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void eliminarPrimero() throws Exception {
+        try {
+            // Verificar si la lista está vacía
+            if (this.empty()) {
+                throw new Exception("\nLa lista está vacía\n");
+            }
+
+            System.out.println("\nDestruyendo el nodo: " + firstPte.getInfo() + "\n");
+            Node tempPtr = firstPte;           
+            firstPte = firstPte.getNextPte();  
+            tempPtr = null;                    
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void insertarDespues(int referencia, int valor) throws Exception {
+        try {
+            // Verificar si la lista está vacía
+            if (this.empty()) {
+                throw new Exception("\nEl nodo dado como referencia no se encuentra en la lista.\n");
+            }
+
+            // Crear el nuevo nodo y configurarlo
+            Node nuevoPtr = new Node();        // Q, variable nodo temporal
+            nuevoPtr.setInfo(valor);           // DATO, se guarda el nuevo valor
+            nuevoPtr.setNextPte(null);         // el nuevo nodo apunta a nulo
+
+            // Obtener el primer nodo de la lista
+            Node actualPtr = this.firstPte;    // obtiene el primer nodo de la lista
+
+            // Recorre hasta encontrar el valor o llegar al último nodo
+            while (actualPtr.getNextPte() != null && actualPtr.getInfo() != referencia) {
+                actualPtr = actualPtr.getNextPte();
+            }
+
+            // Si se encontró el nodo de referencia
+            if (actualPtr.getInfo() == referencia) {
+                nuevoPtr.setNextPte(actualPtr.getNextPte());    // el nodo nuevo apunta al siguiente del nodo referencia
+                actualPtr.setNextPte(nuevoPtr);                 // el nodo referencia apunta al nuevo
+            } else {
+                throw new Exception("\nEl nodo dado como referencia no se encuentra en la lista.\n");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public void eliminarUltimo() throws Exception {
+        try {
+            // Verificar si la lista está vacía
+            if (this.empty()) {
+                throw new Exception("\nLa lista está vacía\n");
+            }
+
+            // Obtener el primer nodo de la lista
+            Node actualPtr = this.firstPte;    // obtiene el primer nodo de la lista
+            Node previoPtr = null;             // variable que guarda el nodo anterior
+
+            // Recorre hasta llegar al último nodo
+            while (actualPtr.getNextPte() != null) {
+                previoPtr = actualPtr;         // guarda el nodo actual antes de saltar
+                actualPtr = actualPtr.getNextPte();
+            }
+
+            Node tempPtr = actualPtr;          // guardo el nodo eliminar
+
+            if (this.firstPte == actualPtr) {  // solo hay un nodo
+                this.firstPte = null;          // se vacía la lista
+            } else {
+                previoPtr.setNextPte(null);    // el nodo previo se vuelve el último
+            }
+
+            System.out.println("\nDestruyendo el nodo: " + tempPtr.getInfo() + "\n");
+            tempPtr = null;                    // libero la memoria del último nodo
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
