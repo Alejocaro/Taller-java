@@ -29,6 +29,10 @@ public class ListSimpleLink {
         do {
             System.out.println("Ingrese edad: ");
             int age = scan.nextInt();
+            if (age < 0 || age > 150) {
+                System.out.println("Edad inválida");
+                return;
+            }
 
             try {
                 if (objList.insertList(age)) {
